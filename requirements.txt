@@ -1,0 +1,6 @@
+aiohttp
+aiofiles
+async-timeout
+tqdm
+trafilatura
+newspaper3k
