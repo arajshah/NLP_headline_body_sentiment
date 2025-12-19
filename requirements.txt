@@ -4,3 +4,30 @@ async-timeout
 tqdm
 trafilatura
 newspaper3k
+
+# Core data stack
+pandas>=2.1
+numpy>=1.26
+scipy>=1.11
+openpyxl>=3.1
+
+# Viz / reporting
+matplotlib>=3.8
+seaborn>=0.13
+
+# NLP / sentiment
+transformers>=4.41
+torch>=2.2
+
+# URL / outlet analysis
+tldextract>=5.1
+
+# Quality-of-life
+pyyaml>=6.0
+rich>=13.7
+
+# Robustness sentiment baseline (fast, offline)
+vaderSentiment>=3.3.2
+
+# Optional: regression / inference (used if installed)
+statsmodels>=0.14

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nlp-headline-body-sentiment"
+version = "0.1.0"
+description = "Reproducible pipeline to quantify headline–body sentiment gaps and analyze framing/outlet effects."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Arij", email = "unknown@example.com" }]
+dependencies = []
+
+[project.scripts]
+headline-body-sentiment = "nlp_headline_body_sentiment.pipeline:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+
