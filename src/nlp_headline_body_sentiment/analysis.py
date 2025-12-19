@@ -121,3 +121,29 @@ def group_gap(
     return g[g["n"] >= min_n].sort_values("n", ascending=False).reset_index(drop=True)
 
 
+def compare_models(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Lightweight robustness outputs comparing transformer vs VADER if present.
+    Returns a 1-row DataFrame with correlation/coverage metrics.
+    """
+    out = {}
+    if {"sent_gap", "sent_head", "sent_body"}.issubset(df.columns):
+        out["n_transformer"] = int(df[["sent_head", "sent_body"]].dropna().shape[0])
+    if {"sent_head_vader", "sent_body_vader"}.issubset(df.columns):
+        out["n_vader"] = int(df[["sent_head_vader", "sent_body_vader"]].dropna().shape[0])
+        df = df.copy()
+        df["sent_gap_vader"] = pd.to_numeric(df["sent_head_vader"], errors="coerce") - pd.to_numeric(
+            df["sent_body_vader"], errors="coerce"
+        )
+
+    # correlations where both available
+    if {"sent_gap", "sent_gap_vader"}.issubset(df.columns):
+        sub = df.dropna(subset=["sent_gap", "sent_gap_vader"])
+        if len(sub) > 10:
+            rho = stats.spearmanr(sub["sent_gap"], sub["sent_gap_vader"]).statistic
+            out["spearman_gap_transformer_vs_vader"] = float(rho)
+            out["n_both"] = int(len(sub))
+    return pd.DataFrame([out])
+
+
+
